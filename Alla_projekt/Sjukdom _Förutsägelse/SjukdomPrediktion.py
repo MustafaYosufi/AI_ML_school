@@ -40,7 +40,7 @@ def clean_data(df):
                              labels=["Low", "Healthy", "Elevated", "Hypertension I", "Hypertension II", "Hypertension III"])
     return df
 
-# === Dela upp data i tränings-, validerings- och testmängder ===
+# Dela upp data i tränings-, validerings- och testmängder
 def prepare_split(df, version=1):
     # Välj kolumner att ta bort beroende på version
     drop_cols = ["height", "weight", "ap_hi", "ap_lo", "bmi"] if version == 1 else ["height", "weight", "bmi_cat", "bl_tr_cat"]
@@ -82,7 +82,7 @@ def visualize_categories(df):
     warnings.simplefilter(action='ignore', category=FutureWarning)
     fig, axes = plt.subplots(3, 1, figsize=(10, 8))
     for ax, col in zip(axes, ["bl_tr_cat", "gender_cat", "bmi_cat"]):
-        vals = df[df["cardio"] == 1][col].value_counts().sort_values()
+        vals = df[df["cardio"] == 1][col].value_counts()
         sns.barplot(x=vals.index, y=vals.values, ax=ax)
         ax.set_title(col)
     plt.tight_layout()
